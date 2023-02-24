@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../app/store";
-import { jobTypeValues } from "../utils/DataType";
+import { jobStatusValues, jobTypeValues } from "../utils/DataType";
 import axios from "axios";
 import {
   failedResponse,
@@ -16,6 +16,7 @@ const Edit = () => {
     position: "",
     salary: "",
     jobType: "",
+    status: "",
   });
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -30,16 +31,17 @@ const Edit = () => {
     });
   };
 
-  const { editItem, token } = useAppSelector((state) => state.users);
+  const { editItem, token, isLoading } = useAppSelector((state) => state.users);
 
   useEffect(() => {
     if (editItem) {
-      const { company, position, salary, jobType } = editItem;
+      const { company, position, salary, jobType, status } = editItem;
       setEditValue({
         company,
         position,
         salary,
         jobType,
+        status,
       });
     }
   }, [editItem]);
@@ -48,7 +50,7 @@ const Edit = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setLoading());
-    const { company, position, salary, jobType } = editValue;
+    const { company, position, salary, jobType, status } = editValue;
 
     try {
       const { data } = await axios.patch(
@@ -58,6 +60,7 @@ const Edit = () => {
           position,
           salary,
           jobType,
+          status,
         },
         {
           headers: {
@@ -127,12 +130,25 @@ const Edit = () => {
                 ))}
               </select>
             </div>
+            <div className="flex flex-col">
+              <label htmlFor="status">Status</label>
+              <select
+                value={editValue.status}
+                name="status"
+                onChange={handleChange}
+                className="px-2 py-2 text-xl bg-background rounded"
+              >
+                {jobStatusValues.map((options, index) => (
+                  <option key={index}>{options}</option>
+                ))}
+              </select>
+            </div>
           </div>
           <button
             type="submit"
             className="bg-primary px-8 py-2 text-2xl text-white rounded transition-all hover:bg-buttonHover mt-4"
           >
-            Edit
+            {isLoading ? "Updating user information" : "Edit"}
           </button>
         </form>
       </div>

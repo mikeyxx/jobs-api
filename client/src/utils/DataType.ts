@@ -16,3 +16,4 @@ export interface Job {
 }
 
 export const jobTypeValues = ["Intern", "Full-Time", "Contract"];
+export const jobStatusValues = ["Pending", "Interview", "Rejected", "Closed"];

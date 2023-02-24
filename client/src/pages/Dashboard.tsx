@@ -121,7 +121,7 @@ const Dashboard = () => {
               name="jobType"
               value={jobData.jobType}
               onChange={handleChange}
-              className="px-4 py-2 text-xl bg-background rounded"
+              className="px-4 py-2 text-xl bg-background rounded text-gray-400"
             >
               <option>Enter a Job Type</option>
               {jobTypeValues.map((options, index) => (

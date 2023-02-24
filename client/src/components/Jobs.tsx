@@ -3,6 +3,7 @@ import { BiEdit } from "react-icons/bi";
 import { BsTrashFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/store";
+import moment from "moment";
 import {
   getAllJobs,
   setLoading,
@@ -76,32 +77,46 @@ const Jobs = () => {
                 </tr>
               </thead>
               <tbody>
-                {jobs?.map((job) => (
-                  <tr
-                    key={job._id}
-                    className="w-full p-4 flex items-center justify-between"
-                  >
-                    <td>{job.company}</td>
-                    <td>{job.position}</td>
-                    <td>{job.jobType}</td>
-                    <td>{job.salary}</td>
-                    <td>{job.createAt}</td>
-                    <td className="bg-[#d1e7dd] px-7">
-                      <small>Pending</small>
-                    </td>
-                    <td className="flex">
-                      <BiEdit
-                        onClick={() => fetchSingleJob(job._id)}
-                        className="mr-2 cursor-pointer text-green-600"
-                      />
+                {jobs?.map((job) => {
+                  const {
+                    _id: id,
+                    company,
+                    position,
+                    jobType,
+                    salary,
+                    createAt,
+                    status,
+                  } = job;
+                  let date: any = moment(createAt);
+                  date = date.format("MMMM Do, YYYY");
 
-                      <BsTrashFill
-                        onClick={() => handleDelete(job._id)}
-                        className="cursor-pointer text-red-800"
-                      />
-                    </td>
-                  </tr>
-                ))}
+                  return (
+                    <tr
+                      key={id}
+                      className="w-full p-4 flex items-center justify-between"
+                    >
+                      <td>{company}</td>
+                      <td>{position}</td>
+                      <td>{jobType}</td>
+                      <td>{salary}</td>
+                      <td>{date}</td>
+                      <td className="bg-[#d1e7dd] px-7">
+                        <small>{status}</small>
+                      </td>
+                      <td className="flex">
+                        <BiEdit
+                          onClick={() => fetchSingleJob(id)}
+                          className="mr-2 cursor-pointer text-green-600"
+                        />
+
+                        <BsTrashFill
+                          onClick={() => handleDelete(id)}
+                          className="cursor-pointer text-red-800"
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}
