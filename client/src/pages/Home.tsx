@@ -14,12 +14,12 @@ const Home = () => {
             Job Tracking App
           </h1>
           <p>
-            Jobio is a job tracking application is a tool designed to help
-            individuals and organizations keep track of job applications and
-            hiring processes. It allows users to log job applications, track the
-            status of each application, and set reminders for follow-up tasks
-            such as sending thank-you notes, scheduling interviews, and checking
-            on application status.
+            Jobio is a job tracking application designed to help individuals and
+            organizations keep track of job applications and hiring processes.
+            It allows users to log job applications, track the status of each
+            application, and set reminders for follow-up tasks such as sending
+            thank-you notes, scheduling interviews, and checking on application
+            status.
           </p>
           <Link to="/register">
             <button className="bg-primary px-4 py-2 mt-5 text-2xl text-white rounded transition-all hover:bg-buttonHover shadow-md">

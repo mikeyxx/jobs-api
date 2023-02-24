@@ -11,9 +11,7 @@ import {
 import LoadingState from "./LoadingState";
 
 const Jobs = () => {
-  const { jobs, isLoading, token, success } = useAppSelector(
-    (state) => state.users
-  );
+  const { jobs, isLoading, token } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const handleDelete = async (id: string) => {
@@ -85,14 +83,6 @@ const Jobs = () => {
                 ))}
               </tbody>
             </table>
-          )}
-
-          {success ? (
-            <span className="flex justify-center bg-green-400 mt-8 ">
-              Action Success
-            </span>
-          ) : (
-            <span className="bg-red-400">Failed to perform action</span>
           )}
         </div>
       )}

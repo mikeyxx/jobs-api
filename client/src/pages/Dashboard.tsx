@@ -9,6 +9,7 @@ import {
   getAllJobs,
   setLoading,
   failedResponse,
+  actionComplete,
 } from "../features/user/UserSlice";
 import { useEffect } from "react";
 
@@ -20,7 +21,7 @@ const Dashboard = () => {
     jobType: "",
   });
   const dispatch = useAppDispatch();
-  const { token, isLoading } = useAppSelector((state) => state.users);
+  const { token, isLoading, success } = useAppSelector((state) => state.users);
 
   const handleChange = (
     e: React.FormEvent<HTMLInputElement | HTMLSelectElement>
@@ -79,11 +80,12 @@ const Dashboard = () => {
       console.log(error);
       dispatch(failedResponse());
     }
+    dispatch(actionComplete());
   };
 
   useEffect(() => {
     fetchJobs();
-  }, [isLoading]);
+  }, [success]);
 
   return (
     <div className="max-w-[1100px] w-full m-auto min-h-screen overflow-hidden">
