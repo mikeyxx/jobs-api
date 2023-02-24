@@ -1,18 +1,20 @@
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import { BsTrashFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/store";
 import {
   getAllJobs,
   setLoading,
   failedResponse,
+  getSingleJob,
 } from "../features/user/UserSlice";
 import LoadingState from "./LoadingState";
 
 const Jobs = () => {
   const { jobs, isLoading, token } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleDelete = async (id: string) => {
     dispatch(setLoading());
@@ -30,6 +32,23 @@ const Jobs = () => {
     } catch (error) {
       console.log(error);
       dispatch(failedResponse());
+    }
+  };
+
+  const fetchSingleJob = async (id: string) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/api/v1/jobs/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(getSingleJob(data.job));
+      navigate(`/edit/${id}`);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -71,9 +90,11 @@ const Jobs = () => {
                       <small>Pending</small>
                     </td>
                     <td className="flex">
-                      <Link to={`/edit/${job._id}`}>
-                        <BiEdit className="mr-2 cursor-pointer text-green-600" />
-                      </Link>
+                      <BiEdit
+                        onClick={() => fetchSingleJob(job._id)}
+                        className="mr-2 cursor-pointer text-green-600"
+                      />
+
                       <BsTrashFill
                         onClick={() => handleDelete(job._id)}
                         className="cursor-pointer text-red-800"
