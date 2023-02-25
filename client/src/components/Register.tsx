@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Register = ({ setIsMember }: Props) => {
+  const [userAlert, setUserAlert] = useState(false);
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
@@ -36,7 +37,7 @@ const Register = ({ setIsMember }: Props) => {
     dispatch(setLoading());
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/auth/register",
+        `${import.meta.env.VITE_APP_REGISTER_API}`,
         {
           name,
           email,
@@ -44,6 +45,9 @@ const Register = ({ setIsMember }: Props) => {
         }
       );
       dispatch(registerUser({ user: data.user.name }));
+      if (data.user) {
+        setUserAlert(!userAlert);
+      }
     } catch (error) {
       dispatch(failedResponse());
       console.log(error);
@@ -117,18 +121,20 @@ const Register = ({ setIsMember }: Props) => {
           </div>
           <button
             type="submit"
-            className="bg-primary transition-all hover:bg-buttonHover text-white w-full rounded mt-6 p-1"
+            className="bg-primary transition-all hover:bg-buttonHover text-white w-full rounded mt-9 p-1"
           >
             {isLoading ? "Adding User..." : "Submit"}
           </button>
         </form>
-        <p className="text-center mt-10 ">
-          {user !== null || "" || undefined ? (
-            <span className="text-green-500">{userAddedAlert()}</span>
-          ) : (
-            <span className="text-red-600">{userAddedAlert()}</span>
-          )}
-        </p>
+
+        {userAlert ? (
+          <span className="text-green-500 flex justify-center mt-7 ">
+            {userAddedAlert()}
+          </span>
+        ) : (
+          ""
+        )}
+
         <p className="text-center mt-6">
           Already a member?{" "}
           <span

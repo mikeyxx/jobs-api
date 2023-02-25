@@ -4,8 +4,14 @@ import Dashboard from "./pages/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import { useEffect } from "react";
 
 function App() {
+  // useEffect(() => {
+  //   window.process = {
+  //     ...window.process,
+  //   };
+  // }, []);
   return (
     <>
       <Router>

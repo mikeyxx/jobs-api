@@ -40,7 +40,7 @@ const Dashboard = () => {
     dispatch(setLoading());
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/jobs",
+        `${import.meta.env.VITE_APP_JOBS_API}`,
         {
           company,
           position,
@@ -70,7 +70,7 @@ const Dashboard = () => {
   const fetchJobs = async () => {
     dispatch(setLoading());
     try {
-      const { data } = await axios.get("http://localhost:3000/api/v1/jobs", {
+      const { data } = await axios.get(`${import.meta.env.VITE_APP_JOBS_API}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

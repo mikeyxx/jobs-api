@@ -37,7 +37,7 @@ const Login = ({ setIsMember }: Props) => {
     dispatch(setLoading());
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
+        `${import.meta.env.VITE_APP_LOGIN_API}`,
         { email, password }
       );
       dispatch(loginUser({ user: data.user.name, token: data.token }));
