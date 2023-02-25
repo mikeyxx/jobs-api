@@ -4,6 +4,7 @@ import { BsTrashFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/store";
 import moment from "moment";
+import { useState, useEffect } from "react";
 import {
   getAllJobs,
   setLoading,
@@ -11,11 +12,13 @@ import {
   getSingleJob,
 } from "../features/user/UserSlice";
 import LoadingState from "./LoadingState";
+import JobsOnSmallScreen from "./JobsOnSmallScreen";
 
 const Jobs = () => {
   const { jobs, isLoading, token } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [screenSize, setScreenSize] = useState(0);
 
   const handleDelete = async (id: string) => {
     dispatch(setLoading());
@@ -29,7 +32,6 @@ const Jobs = () => {
         }
       );
       dispatch(getAllJobs(data.jobs));
-      console.log(data);
     } catch (error) {
       console.log(error);
       dispatch(failedResponse());
@@ -53,11 +55,23 @@ const Jobs = () => {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screenSize]);
+
+  if (isLoading) {
+    return <LoadingState />;
+  }
+
   return (
     <>
-      {isLoading ? (
-        <LoadingState />
-      ) : (
+      {screenSize > 929 ? (
         <div className="mt-16">
           {jobs?.length < 1 ? (
             <p className="font-0 font-title2 text-center">
@@ -121,6 +135,8 @@ const Jobs = () => {
             </table>
           )}
         </div>
+      ) : (
+        <JobsOnSmallScreen />
       )}
     </>
   );

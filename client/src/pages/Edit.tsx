@@ -45,7 +45,6 @@ const Edit = () => {
       });
     }
   }, [editItem]);
-  console.log(editItem);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +75,7 @@ const Edit = () => {
   };
 
   return (
-    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden">
+    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden px-6">
       <Navbar />
       <Link to="/dashboard">
         <button className="bg-black text-white mt-16 w-48 rounded p-1">

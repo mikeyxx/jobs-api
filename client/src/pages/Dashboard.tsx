@@ -88,7 +88,7 @@ const Dashboard = () => {
   }, [success]);
 
   return (
-    <div className="max-w-[1100px] w-full m-auto min-h-screen overflow-hidden">
+    <div className="max-w-[1100px] w-full m-auto min-h-screen overflow-hidden px-7">
       <Navbar />
       <div className="w-full bg-white p-5 rounded shadow-sm mt-16 transition-all">
         <form onSubmit={handleSubmit}>
