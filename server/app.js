@@ -2,6 +2,7 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 
 // error handlers
@@ -23,6 +24,11 @@ const authenticatedUser = require("./middleware/authentication");
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticatedUser, jobRouter);
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
