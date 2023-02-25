@@ -4,11 +4,11 @@ import main from "../assets/main.svg";
 
 const Home = () => {
   return (
-    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden">
+    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden p-7">
       <nav className="pt-5">
         <img src={logo} alt="" />
       </nav>
-      <div className="flex min-h-screen items-center justify-center gap-36 max-[1127px]:gap-12 max-[1127px]:flex-col-reverse px-8">
+      <div className="flex h-screen items-center justify-center gap-36 max-[1127px]:gap-2 max-[1127px]:flex-col-reverse px-8 ">
         <div className="w-1/2 max-[1127px]:w-full max-[1127px]:text-center">
           <h1 className="font-title1 font-0 text-5xl mb-10">
             Job Tracking App
