@@ -8,8 +8,8 @@ const Home = () => {
       <nav className="pt-5">
         <img src={logo} alt="" />
       </nav>
-      <div className="flex h-screen items-center justify-center gap-36">
-        <div className="w-1/2">
+      <div className="flex min-h-screen items-center justify-center gap-36 max-[1127px]:gap-12 max-[1127px]:flex-col-reverse px-8">
+        <div className="w-1/2 max-[1127px]:w-full max-[1127px]:text-center">
           <h1 className="font-title1 font-0 text-5xl mb-10">
             Job Tracking App
           </h1>

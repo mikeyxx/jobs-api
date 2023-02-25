@@ -90,9 +90,9 @@ const Dashboard = () => {
   return (
     <div className="max-w-[1100px] w-full m-auto min-h-screen overflow-hidden">
       <Navbar />
-      <div className="w-full bg-white p-5 rounded shadow-sm mt-16">
+      <div className="w-full bg-white p-5 rounded shadow-sm mt-16 transition-all">
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="gridProp transition-all">
             <input
               type="text"
               name="company"

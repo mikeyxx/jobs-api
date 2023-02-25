@@ -84,9 +84,11 @@ const Edit = () => {
         </button>
       </Link>
       <div className="w-full bg-white p-5 rounded shadow-sm mt-6">
-        <h3 className="text-2xl font-0 font-title2 mt-16 mb-6">Update Job</h3>
+        <h3 className="text-2xl font-0 font-title2 mt-16 mb-6 transition-all">
+          Update Job
+        </h3>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="gridProp transition-all">
             <div className="flex flex-col">
               <label htmlFor="company">Company</label>
               <input
