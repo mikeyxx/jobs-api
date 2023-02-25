@@ -72,7 +72,7 @@ const Register = ({ setIsMember }: Props) => {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen px-7">
       <div className="max-w-lg m-auto bg-white p-8 w-full shadow-lg rounded border-t-[5px] border-t-primary">
         <div className="flex flex-col items-center">
           <img src={logo} alt="" />
