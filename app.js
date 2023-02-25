@@ -25,9 +25,9 @@ const authenticatedUser = require("./middleware/authentication");
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticatedUser, jobRouter);
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "./client/dist")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "./client/dist/index.html"));
 });
 
 app.use(errorHandlerMiddleware);
