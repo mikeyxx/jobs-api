@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { logout } from "../features/user/UserSlice";
 
 const Navbar = () => {
-  const user = useAppSelector((state) => state.users.user);
+  const { user } = useAppSelector((state) => state.users);
+
   const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
-  console.log(user);
 
   const handleMenu = () => {
     setShow((pre) => !pre);
@@ -20,6 +20,7 @@ const Navbar = () => {
     localStorage.removeItem("user");
     handleMenu();
   };
+
   return (
     <nav className="pt-5 flex items-center justify-between w-full cursor-pointer">
       <img src={logo} alt="" />

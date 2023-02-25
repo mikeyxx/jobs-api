@@ -1,6 +1,5 @@
 import logo from "../assets/logo.svg";
 import { useState, useEffect } from "react";
-import { User } from "../utils/DataType";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import {
@@ -19,7 +18,7 @@ const Register = ({ setIsMember }: Props) => {
     email: "",
     password: "",
   });
-  const { userAdded, isLoading } = useAppSelector((state) => state.users);
+  const { user, isLoading } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -44,8 +43,7 @@ const Register = ({ setIsMember }: Props) => {
           password,
         }
       );
-      dispatch(registerUser(data.user.name));
-      console.log(data.user.name);
+      dispatch(registerUser({ user: data.user.name }));
     } catch (error) {
       dispatch(failedResponse());
       console.log(error);
@@ -59,7 +57,7 @@ const Register = ({ setIsMember }: Props) => {
   };
 
   const userAddedAlert = () => {
-    if (userAdded) {
+    if (user) {
       return "User Added! Please login";
     }
     return "User creation failed";
@@ -67,7 +65,7 @@ const Register = ({ setIsMember }: Props) => {
 
   useEffect(() => {
     userAddedAlert();
-  }, [userAdded]);
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -125,7 +123,7 @@ const Register = ({ setIsMember }: Props) => {
           </button>
         </form>
         <p className="text-center mt-10 ">
-          {userAdded !== "" ? (
+          {user !== null || "" || undefined ? (
             <span className="text-green-500">{userAddedAlert()}</span>
           ) : (
             <span className="text-red-600">{userAddedAlert()}</span>

@@ -8,21 +8,19 @@ interface UserState {
   isMember: boolean;
   jobs: Job[];
   success: boolean;
-  userAdded: null | string;
   editItem: Job | null;
 }
 
 const info = localStorage.getItem("user");
-const userData = info !== null ? JSON.parse(info) : "";
+let userData = info !== null ? JSON.parse(info) : "";
 
 const initialState: UserState = {
-  user: userData.name,
+  user: userData.user,
   token: userData.token,
   jobs: [],
   success: false,
   isLoading: false,
   isMember: false,
-  userAdded: "",
   editItem: null,
 };
 
@@ -35,7 +33,7 @@ export const UserSlice = createSlice({
     },
     registerUser: (state, action) => {
       state.isLoading = false;
-      state.userAdded = action.payload;
+      state.user = action.payload;
       state.isMember = true;
     },
     failedResponse: (state) => {
