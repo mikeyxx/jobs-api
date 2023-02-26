@@ -68,14 +68,13 @@ const Edit = () => {
         }
       );
       dispatch(updateJob(data.job));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedResponse());
+    } catch (error: any) {
+      dispatch(failedResponse(error.response.data.err._message));
     }
   };
 
   return (
-    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden px-6">
+    <div className="max-w-[1100px] w-full m-auto min-h-screen px-6">
       <Navbar />
       <Link to="/dashboard">
         <button className="bg-black text-white mt-16 w-48 rounded p-1">
@@ -83,7 +82,7 @@ const Edit = () => {
         </button>
       </Link>
       <div className="w-full bg-white p-5 rounded shadow-sm mt-6">
-        <h3 className="text-2xl font-0 font-title2 mt-16 mb-6 transition-all">
+        <h3 className="text-2xl font-0 font-title2 mt-10 mb-6 transition-all">
           Update Job
         </h3>
         <form onSubmit={handleSubmit}>

@@ -32,9 +32,8 @@ const Jobs = () => {
         }
       );
       dispatch(getAllJobs(data.jobs));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedResponse());
+    } catch (error: any) {
+      dispatch(failedResponse(error.msg));
     }
   };
 

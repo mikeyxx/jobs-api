@@ -4,11 +4,11 @@ import main from "../assets/main.svg";
 
 const Home = () => {
   return (
-    <div className="max-w-[1100px] w-full m-auto max-h-screen overflow-hidden p-7">
-      <nav className="pt-5">
+    <div className="max-w-[1100px] w-full m-auto min-[931px]:max-h-screen max-[930px]:min-h-screen overflow-hidden p-7">
+      <nav>
         <img src={logo} alt="" />
       </nav>
-      <div className="flex h-screen items-center justify-center gap-36 max-[1127px]:gap-2 max-[1127px]:flex-col-reverse px-8 ">
+      <div className="flex h-screen max-[930px]:h-full items-center justify-center gap-36 max-[1127px]:gap-12 max-[1127px]:flex-col-reverse max-[930px]:mt-10">
         <div className="w-1/2 max-[1127px]:w-full max-[1127px]:text-center">
           <h1 className="font-title1 font-0 text-5xl mb-10">
             Job Tracking App
@@ -22,7 +22,7 @@ const Home = () => {
             status.
           </p>
           <Link to="/register">
-            <button className="bg-primary px-4 py-2 mt-5 text-2xl text-white rounded transition-all hover:bg-buttonHover shadow-md">
+            <button className="bg-primary px-4 py-2 mt-12 text-2xl text-white rounded transition-all hover:bg-buttonHover shadow-md">
               Login / Register
             </button>
           </Link>

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Login = ({ setIsMember }: Props) => {
-  const { isLoading } = useAppSelector((state) => state.users);
+  const { isLoading, errMsg } = useAppSelector((state) => state.users);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [userDetails, setUserDetails] = useState({
@@ -45,12 +45,12 @@ const Login = ({ setIsMember }: Props) => {
         "user",
         JSON.stringify({ user: data.user.name, token: data.token })
       );
+
       if (data.token !== null) {
         navigate("/dashboard");
       }
-    } catch (error) {
-      console.log(error);
-      dispatch(failedResponse());
+    } catch (error: any) {
+      dispatch(failedResponse(error.response.data.msg));
     }
     setUserDetails({
       ...userDetails,
@@ -73,7 +73,7 @@ const Login = ({ setIsMember }: Props) => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               value={userDetails.email}
               onChange={handleChange}
@@ -85,7 +85,7 @@ const Login = ({ setIsMember }: Props) => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               name="password"
               value={userDetails.password}
               onChange={handleChange}
@@ -100,6 +100,7 @@ const Login = ({ setIsMember }: Props) => {
             {isLoading ? "Fetching User Data..." : "Submit"}
           </button>
         </form>
+        <span className="flex mt-4 justify-center text-red-600">{errMsg}</span>
         <p className="text-center mt-6">
           Not yet a member?{" "}
           <span

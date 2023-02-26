@@ -21,7 +21,9 @@ const Dashboard = () => {
     jobType: "",
   });
   const dispatch = useAppDispatch();
-  const { token, isLoading, success } = useAppSelector((state) => state.users);
+  const { token, isLoading, success, errMsg } = useAppSelector(
+    (state) => state.users
+  );
 
   const handleChange = (
     e: React.FormEvent<HTMLInputElement | HTMLSelectElement>
@@ -61,9 +63,8 @@ const Dashboard = () => {
         salary: "",
         jobType: "",
       });
-    } catch (error) {
-      console.log(error);
-      dispatch(failedResponse());
+    } catch (error: any) {
+      dispatch(failedResponse(error.response.data.err._message));
     }
   };
 
@@ -76,9 +77,8 @@ const Dashboard = () => {
         },
       });
       dispatch(getAllJobs(data.jobs));
-    } catch (error) {
-      console.log(error);
-      dispatch(failedResponse());
+    } catch (error: any) {
+      dispatch(failedResponse(error.response.data.err._message));
     }
     dispatch(actionComplete());
   };
@@ -88,7 +88,7 @@ const Dashboard = () => {
   }, [success]);
 
   return (
-    <div className="max-w-[1100px] w-full m-auto min-h-screen overflow-hidden px-7">
+    <div className="max-w-[1100px] w-full m-auto min-h-screen px-7">
       <Navbar />
       <div className="w-full bg-white p-5 rounded shadow-sm mt-16 transition-all">
         <form onSubmit={handleSubmit}>
@@ -136,6 +136,13 @@ const Dashboard = () => {
             {isLoading ? "Adding new job..." : "Add Job"}
           </button>
         </form>
+        {errMsg ? (
+          <span className="bg-red-400 flex justify-center mt-7 p-2 text-white">
+            {errMsg}
+          </span>
+        ) : (
+          ""
+        )}
       </div>
       <Jobs />
     </div>

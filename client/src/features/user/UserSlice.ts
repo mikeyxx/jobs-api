@@ -9,6 +9,7 @@ interface UserState {
   jobs: Job[];
   success: boolean;
   editItem: Job | null;
+  errMsg: null;
 }
 
 const info = localStorage.getItem("user");
@@ -22,6 +23,7 @@ const initialState: UserState = {
   isLoading: false,
   isMember: false,
   editItem: null,
+  errMsg: null,
 };
 
 export const UserSlice = createSlice({
@@ -35,10 +37,12 @@ export const UserSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
       state.isMember = true;
+      state.errMsg = null;
     },
-    failedResponse: (state) => {
+    failedResponse: (state, action) => {
       state.isLoading = false;
       state.success = false;
+      state.errMsg = action.payload;
     },
     loginUser: (state, action) => {
       const { user, token } = action.payload;
@@ -46,15 +50,18 @@ export const UserSlice = createSlice({
       state.token = token;
       state.isLoading = false;
       state.isMember = true;
+      state.errMsg = null;
     },
     createJob: (state) => {
       state.success = true;
       state.isLoading = false;
+      state.errMsg = null;
     },
     getAllJobs: (state, action) => {
       state.jobs = action.payload;
       state.isLoading = false;
       state.success = true;
+      // state.errMsg = null
     },
     getSingleJob: (state, action) => {
       state.editItem = action.payload;
@@ -72,6 +79,7 @@ export const UserSlice = createSlice({
       state.token = null;
       state.isMember = false;
       state.jobs = [];
+      state.errMsg = null;
     },
   },
 });

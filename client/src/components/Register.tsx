@@ -13,13 +13,12 @@ interface Props {
 }
 
 const Register = ({ setIsMember }: Props) => {
-  const [userAlert, setUserAlert] = useState(false);
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const { user, isLoading } = useAppSelector((state) => state.users);
+  const { user, isLoading, errMsg } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -45,12 +44,8 @@ const Register = ({ setIsMember }: Props) => {
         }
       );
       dispatch(registerUser({ user: data.user.name }));
-      if (data.user) {
-        setUserAlert(!userAlert);
-      }
-    } catch (error) {
-      dispatch(failedResponse());
-      console.log(error);
+    } catch (error: any) {
+      dispatch(failedResponse(error.response.data.err._message));
     }
     setNewUser({
       ...newUser,
@@ -59,17 +54,6 @@ const Register = ({ setIsMember }: Props) => {
       password: "",
     });
   };
-
-  const userAddedAlert = () => {
-    if (user) {
-      return "User Added! Please login";
-    }
-    return "User creation failed";
-  };
-
-  useEffect(() => {
-    userAddedAlert();
-  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen px-7">
@@ -98,7 +82,7 @@ const Register = ({ setIsMember }: Props) => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               required
               name="email"
               className="bg-background rounded p-1"
@@ -111,7 +95,8 @@ const Register = ({ setIsMember }: Props) => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
+              minLength={6}
               required
               name="password"
               className="bg-background rounded p-1"
@@ -127,14 +112,12 @@ const Register = ({ setIsMember }: Props) => {
           </button>
         </form>
 
-        {userAlert ? (
-          <span className="text-green-500 flex justify-center mt-7 ">
-            {userAddedAlert()}
+        <span className="text-red-600 flex justify-center mt-7 ">{errMsg}</span>
+        {user && (
+          <span className="text-green-500 flex justify-center mt-7">
+            User created! Please login in
           </span>
-        ) : (
-          ""
         )}
-
         <p className="text-center mt-6">
           Already a member?{" "}
           <span
