@@ -53,7 +53,7 @@ const Edit = () => {
 
     try {
       const { data } = await axios.patch(
-        `${import.meta.env.VITE_APP_JOBS_API}/${id}`,
+        `/api/v1/jobs/${id}`,
         {
           company,
           position,
