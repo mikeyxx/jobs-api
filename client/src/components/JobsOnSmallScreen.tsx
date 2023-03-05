@@ -18,14 +18,11 @@ const JobsOnSmallScreen = () => {
 
   const fetchSingleJob = async (id: string) => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_JOBS_API}/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`/api/v1/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(getSingleJob(data.job));
       navigate(`/edit/${id}`);
     } catch (error) {
@@ -36,14 +33,11 @@ const JobsOnSmallScreen = () => {
   const handleDelete = async (id: string) => {
     dispatch(setLoading());
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_JOBS_API}/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.delete(`/api/v1/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(getAllJobs(data.jobs));
     } catch (error: any) {
       dispatch(failedResponse(error.response.data.err._message));

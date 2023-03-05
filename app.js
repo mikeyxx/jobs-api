@@ -12,8 +12,8 @@ const notFoundMiddleware = require("./middleware/not-found");
 // Database
 const connectDB = require("./db/connect");
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 // Routes
 const authRouter = require("./routes/user");
@@ -33,7 +33,7 @@ app.get("*", (req, res) => {
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3500;
 
 const start = async () => {
   try {

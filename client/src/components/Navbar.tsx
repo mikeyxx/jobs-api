@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import logo from "../assets/logo.svg";
 import { RxAvatar } from "react-icons/rx";
 import { IoMdArrowDropdown } from "react-icons/io";

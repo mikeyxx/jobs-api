@@ -35,14 +35,11 @@ const Register = ({ setIsMember }: Props) => {
     e.preventDefault();
     dispatch(setLoading());
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_REGISTER_API}`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const { data } = await axios.post(`/api/v1/auth/register`, {
+        name,
+        email,
+        password,
+      });
       dispatch(registerUser({ user: data.user.name }));
     } catch (error: any) {
       dispatch(failedResponse(error.response.data.err._message));

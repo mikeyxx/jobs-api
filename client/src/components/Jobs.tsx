@@ -23,14 +23,11 @@ const Jobs = () => {
   const handleDelete = async (id: string) => {
     dispatch(setLoading());
     try {
-      const { data } = await axios.delete(
-        `http://localhost:3000/api/v1/jobs/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.delete(`/api/v1/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(getAllJobs(data.jobs));
     } catch (error: any) {
       dispatch(failedResponse(error.msg));
@@ -39,14 +36,11 @@ const Jobs = () => {
 
   const fetchSingleJob = async (id: string) => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_JOBS_API}/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`/api/v1/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(getSingleJob(data.job));
       navigate(`/edit/${id}`);
     } catch (error) {

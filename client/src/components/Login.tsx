@@ -36,10 +36,10 @@ const Login = ({ setIsMember }: Props) => {
     e.preventDefault();
     dispatch(setLoading());
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_LOGIN_API}`,
-        { email, password }
-      );
+      const { data } = await axios.post(`/api/v1/auth/login`, {
+        email,
+        password,
+      });
       dispatch(loginUser({ user: data.user.name, token: data.token }));
       localStorage.setItem(
         "user",
